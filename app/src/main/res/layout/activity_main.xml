@@ -6,15 +6,15 @@
     android:layout_height="match_parent"
     tools:context="infnet.edu.br.assessementfundamentosandroidjava.activity.MainActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/lista"
-        android:layout_width="match_parent"
+
+    <ListView
+        android:layout_width="368dp"
         android:layout_height="match_parent"
+        android:id="@+id/lista"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
         android:layout_marginLeft="8dp"
-        android:scrollbars="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintRight_toRightOf="parent" />
 </android.support.constraint.ConstraintLayout>

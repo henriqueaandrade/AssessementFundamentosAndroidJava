@@ -2,15 +2,18 @@ package infnet.edu.br.assessementfundamentosandroidjava.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.ListView;
+import android.widget.Toast;
 
-import java.util.List;
+import com.facebook.login.LoginManager;
 
-import infnet.edu.br.assessementfundamentosandroidjava.InfnetAPI;
+import java.util.ArrayList;
+
+import infnet.edu.br.assessementfundamentosandroidjava.util.InfnetAPI;
 import infnet.edu.br.assessementfundamentosandroidjava.R;
-import infnet.edu.br.assessementfundamentosandroidjava.adapter.RecyclerAdapter;
+import infnet.edu.br.assessementfundamentosandroidjava.adapter.ItemAdapter;
+import infnet.edu.br.assessementfundamentosandroidjava.model.InfnetCatalog;
 import infnet.edu.br.assessementfundamentosandroidjava.model.Tarefa;
 import infnet.edu.br.assessementfundamentosandroidjava.util.ApiClient;
 import retrofit2.Call;
@@ -19,105 +22,61 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
-    private RecyclerAdapter adapter;
-    private List<Tarefa> tarefas;
     private InfnetAPI infnetAPI;
+    private ListView list;
+    private ItemAdapter adapter;
+    private ArrayList<Tarefa> tarefa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //        Retrofit retrofit = new Retrofit.Builder()
-//                 .baseUrl(InfnetService.BASE_URL)
-//                 .addConverterFactory(GsonConverterFactory.create())
-//                 .build();
-
-        recyclerView = (RecyclerView) findViewById(R.id.lista);
-        layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
+        list = (ListView) findViewById(R.id.lista);
+        tarefa = new ArrayList<>();
 
         infnetAPI = ApiClient.getInfnetAPI().create(InfnetAPI.class);
-        Call<List<Tarefa>> call = infnetAPI.getTarefas();
+        Call<InfnetCatalog> call = infnetAPI.getTarefas();
 
-        call.enqueue(new Callback<List<Tarefa>>() {
+        call.enqueue(new Callback<InfnetCatalog>() {
             @Override
-            public void onResponse(Call<List<Tarefa>> call, Response<List<Tarefa>> response) {
+            public void onResponse(Call<InfnetCatalog> call, Response<InfnetCatalog> response) {
 
                 if (!response.isSuccessful()) {
-                    Log.v("joao: ", "ocorreu um erro: " + response.code());
+                    Log.v("Joao: ", "ocorreu um erro: " + response.code());
                 } else {
 
-                    tarefas = response.body();
-                    adapter = new RecyclerAdapter(tarefas);
-                    recyclerView.setAdapter(adapter);
+                    InfnetCatalog catalog = response.body();
+
+                    if (catalog != null) {
+
+                        tarefa = (ArrayList<Tarefa>) catalog.getTarefas();
+                        adapter = new ItemAdapter(MainActivity.this, tarefa);
+                        list.setAdapter(adapter);
+
+                       // for (Tarefa t : catalog.getTarefas()) {
+                           // Log.i("Joao", t.getDescricao());
+                        // }
+
+                    } else {
+                        Toast.makeText(getApplicationContext(),
+                                        "A lista está vazia!",
+                                        Toast.LENGTH_SHORT)
+                                        .show();
+                    }
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Tarefa>> call, Throwable t) {
-                Log.d("joao: ", "Erro: " + t.getMessage());
+            public void onFailure(Call<InfnetCatalog> call, Throwable t) {
+                Log.d("Joao: ", "Erro: " + t.getMessage());
             }
-        });
+        }); // End call.enqueue
+    }
 
-//        ApiClient apiClient = new ApiClient();
-//        apiClient.getInfnetAPI();
-//
-//        InfnetAPI infnet = apiClient.retrofit.create(InfnetAPI.class);
-//        Call<List<Tarefa>> apiInfnet = infnet.getTarefas();
-//
-//        apiInfnet.enqueue(new Callback<List<Tarefa>>() {
-//            @Override
-//            public void onResponse(Call<List<Tarefa>> call, Response<List<Tarefa>> response) {
-//                if (!response.isSuccessful()) {
-//                    Log.v("joao: ", "ocorreu um erro: " + response.code());
-//                } else {
-//
-//                    List<Tarefa> tarefas =  response.body();
-//
-//                    for (Tarefa t : tarefas){
-//                        Log.i("joao: ", t.getDescricao());
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Tarefa>> call, Throwable t) {
-//                Log.d("joao: ", "Erro: " + t.getMessage());
-//            }
-//        });
-
-//        InfnetService service = retrofit.create(InfnetService.class);
-//        Call<InfnetService> dadosInfnet = service.listRepos();
-
-
-
-
-//        dadosInfnet.enqueue(new Callback<InfnetService>() {
-//            @Override
-//            public void onResponse(Call<InfnetService> call, Response<InfnetService> response) {
-//                if (!response.isSuccessful()) {
-//                    // se retornou com falha
-//                    Log.i("Erro", "Ocorreu um outro erro " + response.code());
-//                } else {
-//                    // se retornou com sucesso
-//                    InfnetCatalog catalog = (InfnetCatalog) response.body();
-//
-//                    for (Ativity ativity : catalog.getAtivities() ) {
-//                        Log.i("Sucess", String.format("%s: %s", ativity.getDescription()));
-//
-//                    }
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Call<InfnetService> call, Throwable t) {
-//                Log.i("Erro", "Ocorreu um erro: " + t.getMessage());
-//            }
-//        });
+    @Override
+    protected void onStop() {
+        super.onStop();
+        LoginManager.getInstance().logOut();
     }
 }

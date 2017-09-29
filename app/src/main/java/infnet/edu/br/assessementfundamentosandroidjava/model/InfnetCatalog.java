@@ -1,5 +1,7 @@
 package infnet.edu.br.assessementfundamentosandroidjava.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -7,5 +9,12 @@ import java.util.List;
  */
 
 public class InfnetCatalog {
-    public List<Tarefa> tarefas;
+
+    @SerializedName("tarefa")
+    public List<Tarefa> tarefa;
+
+    public List<Tarefa> getTarefas() {
+        return tarefa;
+    }
+
 }

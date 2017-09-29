@@ -1,5 +1,8 @@
 package infnet.edu.br.assessementfundamentosandroidjava.model;
 
+import android.media.Image;
+
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -8,21 +11,22 @@ import com.google.gson.annotations.SerializedName;
 
 public class Tarefa {
     @SerializedName("id")
-    private int id;
+    private String id;
 
     @SerializedName("descricao")
     private String descricao;
 
-//    public Tarefa(int id, String descricao) {
+//    public Tarefa() {
 //        this.id = id;
 //        this.descricao = descricao;
 //    }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
     public String getDescricao() {
         return descricao;
     }
+
 }

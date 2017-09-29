@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "531114402622",
+    "firebase_url": "https://assessementfundamentosandroid.firebaseio.com",
+    "project_id": "assessementfundamentosandroid",
+    "storage_bucket": "assessementfundamentosandroid.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531114402622:android:42efff10600258bd",
+        "android_client_info": {
+          "package_name": "infnet.edu.br.assessementfundamentosandroidjava"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "531114402622-gdb1e5qoig7r7s7ldlngppbgfb33dpu1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "infnet.edu.br.assessementfundamentosandroidjava",
+            "certificate_hash": "62b1b930f5ca3f1312c19467620852229c21b70d"
+          }
+        },
+        {
+          "client_id": "531114402622-1fbbho3blpdqoam13784r29bqh45upg9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAa9l7iHwlZrDFenrfcSYTKs6zN8140RqE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "531114402622-1fbbho3blpdqoam13784r29bqh45upg9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

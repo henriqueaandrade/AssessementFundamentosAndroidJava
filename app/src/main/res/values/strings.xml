@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AssessementFundamentosAndroidJava</string>
+    <string name="facebook_app_id">1560031254019442</string>
+    <string name="fb_login_protocol_scheme">YrG5MPXKPxMSwZRnYghSIpwhtw0=</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
